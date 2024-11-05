@@ -1,4 +1,3 @@
-```markdown
 # Hey Center
 
 Hey Center es una plataforma de mensajería diseñada para facilitar la interacción entre los usuarios en los chats de diversas páginas web. La aplicación permite a los usuarios contestar mensajes de manera eficiente y está construida utilizando Next.js, lo que asegura un rendimiento óptimo y una experiencia de usuario fluida.
