@@ -25,6 +25,11 @@ const SideChat = ({ messages, clients, setClient, isEnd, setInfoClient }: { mess
     setFile(selectedFile || null);
   };
 
+  const handleFileChangeEmpty = () => {
+    setFile(null);
+  };
+
+
   const handleSendMessage = () => {
     if (file) {
       // Aquí se añade la lógica para manejar el envío de archivos
@@ -37,6 +42,7 @@ const SideChat = ({ messages, clients, setClient, isEnd, setInfoClient }: { mess
 
   const handleChat = () => {
     setClient([]);
+    setInfoClient(false);
   };
 
   useEffect(() => {
@@ -118,8 +124,14 @@ const SideChat = ({ messages, clients, setClient, isEnd, setInfoClient }: { mess
         )}
       </div>
 
+      {file && (
+        <div className='p-3 bg-gray-100 flex flex-row justify-between items-center'>
+          <p className="text-sm text-gray-500">Archivo seleccionado: {file.name}</p>
+          <XMarkIcon className='w-5 h-5 ml-2 text-gray-500 cursor-pointer' onClick={handleFileChangeEmpty} />
+        </div>
+      )}
       {messages?.length > 0 && !isEnd && (
-        <div className="p-4 border-t border-gray-200 w-full flex flex-row justify-between items-center">
+        <div className="p-4 border-t border-gray-200 w-full flex flex-row justify-between items-center mb-10 lg:mb-0">
           <Textarea
             value={newMessage}
             onChange={handleInputChange}
@@ -127,18 +139,21 @@ const SideChat = ({ messages, clients, setClient, isEnd, setInfoClient }: { mess
             rows={3}
             className="w-5/6"
             style={{ resize: "none" }}
+            endContent={
+              <div className="flex flex-col justify-center items-center gap-2">
+                <label className="cursor-pointer">
+                  <input type="file" className="hidden" onChange={handleFileChange} />
+                  <PaperClipIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
+                </label>
+                <FaceSmileIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
+              </div>
+            }
           />
-          <div className="flex space-x-2 items-center mt-2 w-1/6">
-            <label className="cursor-pointer">
-              <input type="file" className="hidden" onChange={handleFileChange} />
-              <PaperClipIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
-            </label>
-            <FaceSmileIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
-            <Button onClick={handleSendMessage} color="primary" className="w-full">
+          <div className="flex space-x-2 items-center mt-2 ml-2 lg:mt-0 h-full w-1/6 flex-row justify-between">
+            <Button onClick={handleSendMessage} color="primary" className="w-full h-full">
               Enviar
             </Button>
           </div>
-          {file && <p className="mt-2 text-sm text-gray-500">Archivo seleccionado: {file.name}</p>}
         </div>
       )}
     </div>

@@ -1,3 +1,4 @@
+import { UserIcon } from '@/contants/assets';
 import { Skeleton, Tooltip } from '@nextui-org/react';
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -81,13 +82,7 @@ const ChatCard = ({ clients, isSelected }: { clients: any; isSelected: boolean }
       }`}
     >
       <div className="w-1/6 flex justify-center items-start rounded-full w-10">
-        <Image
-          src="/images/user.png"
-          className="object-cover rounded-full"
-          alt=""
-          width={60}
-          height={60}
-        />
+        <UserIcon className="object-cover rounded-full w-full h-full" />
       </div>
       <div className="w-full h-full flex flex-col justify-between">
         <div className="text-lg font-semibold">{clients?.name}</div>

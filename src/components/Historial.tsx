@@ -64,11 +64,16 @@ export default function Historial() {
   };
 
   return (
-    <main className="w-full h-screen p-5 flex flex-row">
+    <main className="w-full h-screen flex flex-col lg:flex-row p-0 lg:p-5">
       <BodyContent>
-        <div className="w-1/5">
+        <div className={`lg:w-1/5 w-full ${client?.name ? 'hidden lg:block' : ''}`}>
           <div className="p-5 border-b-2">
-            <Input type="text" placeholder="Buscar cliente" onChange={e => handleSearchClient(e.target.value)} startContent={<MagnifyingGlassIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 w-5"/> }/>
+            <Input
+              type="text"
+              placeholder="Buscar cliente"
+              onChange={(e) => handleSearchClient(e.target.value)}
+              startContent={<MagnifyingGlassIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 w-5" />}
+            />
           </div>
           {filteredClients.length > 0 ? (
             filteredClients.map((item, index) => (
@@ -80,7 +85,7 @@ export default function Historial() {
             <div className="p-5 text-gray-500 text-center">No se encontraron resultados</div>
           )}
         </div>
-        <div className="w-4/5 border-l-2 transition ease-in-out delay-150">
+        <div className={`lg:w-4/5 w-full border-l-2 md:mb-0 mb-12 ${!client?.name || infoClient ? 'hidden lg:block' : ''}`}>
           {message.length > 0 ? (
             <SideChat messages={message} clients={client} setClient={setClient} isEnd={true} setInfoClient={setInfoClient} />
           ):(
@@ -91,7 +96,11 @@ export default function Historial() {
           )}
         </div>
         {infoClient && (
-          <div className="w-1/5 border-l-2 transition ease-in-out delay-150">
+          <div 
+            className={`w-full lg:w-1/5 border-l-2 transition-transform duration-300 ease-in-out transform ${
+              infoClient ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+            }`}
+          >
             <UserInfo client={client} setInfoClient={setInfoClient} />
           </div>
         )}

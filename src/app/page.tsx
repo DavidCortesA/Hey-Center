@@ -1,5 +1,5 @@
 'use client'
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BodyContent from "@/components/common/BodyContent";
 import SideChat from "@/components/SideChat";
 import ChatCard from "@/components/common/chatCard";
@@ -15,60 +15,60 @@ export default function Home() {
   const [filteredClients, setFilteredClients] = useState<any[]>([]);
   const [infoClient, setInfoClient] = useState<boolean>(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchData = async () => {
-      if(client) {
-        try{
+      if (client) {
+        try {
           const data = await fetch(`https://sellia-files.s3.us-east-2.amazonaws.com/challenge/${client._id}.json`);
           const dataJson = await data.json();
           setMessage(dataJson);
         } catch (error) {
-          setMessage([])
+          setMessage([]);
           console.error(error);
         }
       }
-    }
-
+    };
     fetchData();
+  }, [client]);
 
-  },[client])
-
-  useEffect(()=>{
+  useEffect(() => {
     const fetchData = async () => {
-      try{
-        const data = await fetch('https://sellia-files.s3.us-east-2.amazonaws.com/challenge/clients.json');
+      try {
+        const data = await fetch("https://sellia-files.s3.us-east-2.amazonaws.com/challenge/clients.json");
         const dataJson = await data.json();
         setListClient(dataJson);
         setFilteredClients(dataJson);
       } catch (error) {
-        setListClient([])
-        setFilteredClients([])
+        setListClient([]);
+        setFilteredClients([]);
         console.log(error);
       }
-    }
-
-    fetchData()
-  },[])
-
+    };
+    fetchData();
+  }, []);
 
   const handleClient = (selectedClient: any) => {
     setClient(selectedClient);
   };
 
   const handleSearchClient = (value: string) => {
-    // Filtrar clientes cuyo nombre contenga el texto de búsqueda
     const filtered = listClient.filter((client: any) =>
       client.name.toLowerCase().includes(value.toLowerCase())
     );
-    setFilteredClients(filtered); // Actualizar el estado de los clientes filtrados
+    setFilteredClients(filtered);
   };
 
   return (
-    <main className="w-full h-screen p-5 flex flex-row">
+    <main className="w-full h-screen flex flex-col lg:flex-row p-0 lg:p-5">
       <BodyContent>
-        <div className="w-1/5">
+        <div className={`lg:w-1/5 w-full ${client?.name ? 'hidden lg:block' : ''}`}>
           <div className="p-5 border-b-2">
-            <Input type="text" placeholder="Buscar cliente" onChange={e => handleSearchClient(e.target.value)} startContent={<MagnifyingGlassIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 w-5"/> }/>
+            <Input
+              type="text"
+              placeholder="Buscar cliente"
+              onChange={(e) => handleSearchClient(e.target.value)}
+              startContent={<MagnifyingGlassIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 w-5" />}
+            />
           </div>
           {filteredClients.length > 0 ? (
             filteredClients.map((item, index) => (
@@ -80,18 +80,22 @@ export default function Home() {
             <div className="p-5 text-gray-500 text-center">No se encontraron resultados</div>
           )}
         </div>
-        <div className="w-4/5 border-l-2 transition ease-in-out delay-150">
+        <div className={`lg:w-4/5 w-full border-l-2 ${!client?.name || infoClient ? 'hidden lg:block' : ''}`}>
           {message.length > 0 ? (
             <SideChat messages={message} clients={client} setClient={setClient} setInfoClient={setInfoClient} />
-          ):(
-            <div className="h-full flex flex-col items-center justify-evenly">
+          ) : (
+            <div className="h-full lg:w-full w-fit flex flex-col items-center justify-evenly">
               <MessageEmpty />
               <h3 className="text-lg font-semibold text-gray-500 mt-2">No hay mensajes para mostrar</h3>
             </div>
           )}
         </div>
         {infoClient && (
-          <div className="w-1/5 border-l-2 transition ease-in-out delay-150">
+          <div
+            className={`w-full lg:w-1/5 border-l-2 transition-transform duration-300 ease-in-out transform ${
+              infoClient ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+            }`}
+          >
             <UserInfo client={client} setInfoClient={setInfoClient} />
           </div>
         )}
@@ -99,3 +103,4 @@ export default function Home() {
     </main>
   );
 }
+
