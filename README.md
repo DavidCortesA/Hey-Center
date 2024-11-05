@@ -75,10 +75,3 @@ Las contribuciones son bienvenidas. Si deseas colaborar, por favor abre un "issu
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT. Para más detalles, consulta el archivo [LICENSE](LICENSE).
-```
-
-### Instrucciones para usar el README
-
-- Asegúrate de reemplazar cualquier parte específica (como el enlace de GitHub) con la información relevante de tu proyecto.
-- Puedes personalizar la sección de "Características" para reflejar las funcionalidades exactas de tu aplicación.
-- Si tienes más detalles o secciones que desees agregar, siéntete libre de hacerlo.
