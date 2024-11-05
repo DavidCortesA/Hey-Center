@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tooltip } from '@nextui-org/react';
-import { ChatBubbleLeftIcon, ClockIcon, Cog6ToothIcon, HomeModernIcon, UserIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon, ClockIcon, Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
+import { SelliaLogo } from '@/contants/assets';
 
 const Sidebar = ({ setTab, tab }: { setTab: (tab: string) => void, tab: string }) => {
   return (
@@ -8,7 +9,9 @@ const Sidebar = ({ setTab, tab }: { setTab: (tab: string) => void, tab: string }
       {/* Top icons */}
       <div className="flex flex-col items-center gap-8">
         {/* Empresa/Home Icon */}
-        <HomeModernIcon className="w-6 h-6" />
+        <div className='w-6 h-6'>
+          <SelliaLogo />
+        </div>
 
         {/* Chat Icon */}
         <Tooltip content="Chat" placement="right">

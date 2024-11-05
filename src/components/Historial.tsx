@@ -6,12 +6,14 @@ import ChatCard from "@/components/common/chatCard";
 import { MessageEmpty } from "@/contants/assets";
 import { Input } from "@nextui-org/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import UserInfo from "./UserInfo";
 
 export default function Historial() {
   const [client, setClient] = useState<any>();
   const [message, setMessage] = useState<any[]>([]);
   const [listClient, setListClient] = useState<any[]>([]);
   const [filteredClients, setFilteredClients] = useState<any[]>([]);
+  const [infoClient, setInfoClient] = useState<boolean>(false);
 
   useEffect(()=>{
     const fetchData = async () => {
@@ -78,9 +80,9 @@ export default function Historial() {
             <div className="p-5 text-gray-500 text-center">No se encontraron resultados</div>
           )}
         </div>
-        <div className="w-4/5 border-l-2">
+        <div className="w-4/5 border-l-2 transition ease-in-out delay-150">
           {message.length > 0 ? (
-            <SideChat messages={message} clients={client} setClient={setClient} isEnd={true} />
+            <SideChat messages={message} clients={client} setClient={setClient} isEnd={true} setInfoClient={setInfoClient} />
           ):(
             <div className="h-full flex flex-col items-center justify-evenly">
               <MessageEmpty />
@@ -88,6 +90,11 @@ export default function Historial() {
             </div>
           )}
         </div>
+        {infoClient && (
+          <div className="w-1/5 border-l-2 transition ease-in-out delay-150">
+            <UserInfo client={client} setInfoClient={setInfoClient} />
+          </div>
+        )}
       </BodyContent>
     </main>
   );

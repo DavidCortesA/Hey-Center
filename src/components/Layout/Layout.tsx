@@ -6,11 +6,11 @@ import Historial from '../Historial';
 import Configuracion from '../Configuracion';
 
 const Layout = ({children}:{children:React.ReactNode}) => {
-  const [tab, setTab] = useState<string>('home');
+  const [tab, setTab] = useState<string>('chats');
 
   const renderContent = () => {
     switch (tab) {
-      case 'home':
+      case 'chats':
         return <Home />;
       case 'historial':
         return <Historial />;

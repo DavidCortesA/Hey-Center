@@ -3,7 +3,7 @@ import { Textarea, Button, Input } from '@nextui-org/react';
 import { DocumentTextIcon, InformationCircleIcon, XMarkIcon, FaceFrownIcon, FaceSmileIcon, PaperClipIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-const SideChat = ({ messages, clients, setClient, isEnd }: { messages: any[], clients: any, setClient:any, isEnd?:boolean }) => {
+const SideChat = ({ messages, clients, setClient, isEnd, setInfoClient }: { messages: any[], clients: any, setClient:any, isEnd?:boolean, setInfoClient:any }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [newMessage, setNewMessage] = useState<string>('');
@@ -43,12 +43,16 @@ const SideChat = ({ messages, clients, setClient, isEnd }: { messages: any[], cl
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  const handleClientInfo = () => {
+    setInfoClient(true)
+  }
+
   return (
     <div className="w-full h-full flex flex-col justify-between">
       <div className='flex flex-row justify-between items-center border-b-2 px-5 py-3'>
         <h2 className="text-lg font-semibold flex flex-row items-center">
           {clients?.name} 
-          <InformationCircleIcon className='w-5 h-5 ml-2 text-gray-500 cursor-pointer'/> 
+          <InformationCircleIcon className='w-5 h-5 ml-2 text-gray-500 cursor-pointer' onClick={() => handleClientInfo()}/> 
           <span className='text-sm text-gray-500 px-4 py-2 animate-pulse'>{isTyping && 'escribiendo...'}</span>
         </h2>
         <button type='button' className='bg-red-400 hover:bg-red-500 rounded-full w-7 h-7 flex justify-center items-center p-1 text-white'>
@@ -113,8 +117,6 @@ const SideChat = ({ messages, clients, setClient, isEnd }: { messages: any[], cl
           <h1 className="text-gray-500 text-center text-lg mt-4 font-italic">Esta conversación a finalizado</h1>
         )}
       </div>
-
-      
 
       {messages?.length > 0 && !isEnd && (
         <div className="p-4 border-t border-gray-200 w-full flex flex-row justify-between items-center">
