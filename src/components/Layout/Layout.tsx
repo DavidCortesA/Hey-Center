@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import Sidebar from './Sidebar'
 import Home from '@/app/page';
 import Historial from '../Historial';
+import Configuracion from '../Configuracion';
 
 const Layout = ({children}:{children:React.ReactNode}) => {
-  const [tab, setTab] = useState('home');
+  const [tab, setTab] = useState<string>('home');
 
   const renderContent = () => {
     switch (tab) {
@@ -13,7 +14,8 @@ const Layout = ({children}:{children:React.ReactNode}) => {
         return <Home />;
       case 'historial':
         return <Historial />;
-      // Agrega más casos para otras pestañas si es necesario
+      case 'configuracion':
+        return <Configuracion />
       default:
         return <Home />;
     }
@@ -21,7 +23,7 @@ const Layout = ({children}:{children:React.ReactNode}) => {
 
   return (
     <div className="flex flex-row flex-nowrap w-full h-full bg-slate-100">
-      <Sidebar setTab={setTab} />
+      <Sidebar setTab={setTab} tab={tab}/>
       <div className="flex-grow">{renderContent()}</div>
     </div>
   )

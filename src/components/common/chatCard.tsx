@@ -54,7 +54,7 @@ const ChatCard = ({ clients, isSelected }: { clients: any; isSelected: boolean }
   const lastMessage = () => {
     if(messages?.[messages.length - 1]?.message.type === 'text'){
       const reduceText = messages?.[messages.length - 1]?.message.text
-      return `${reduceText.substr(0,35)}...`;
+      return `${reduceText.substr(0,20)}...`;
     } else if(messages?.[messages.length - 1]?.message.type === 'video') {
       return 'Archivo de video'
     } else if(messages?.[messages.length - 1]?.message.type === 'document') {

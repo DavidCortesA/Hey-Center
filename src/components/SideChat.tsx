@@ -3,7 +3,7 @@ import { Textarea, Button, Input } from '@nextui-org/react';
 import { DocumentTextIcon, InformationCircleIcon, XMarkIcon, FaceFrownIcon, FaceSmileIcon, PaperClipIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-const SideChat = ({ messages, clients, setClient }: { messages: any[], clients: any, setClient:any }) => {
+const SideChat = ({ messages, clients, setClient, isEnd }: { messages: any[], clients: any, setClient:any, isEnd?:boolean }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [newMessage, setNewMessage] = useState<string>('');
@@ -109,9 +109,14 @@ const SideChat = ({ messages, clients, setClient }: { messages: any[], clients: 
           </div>
         ))}
         <div ref={scrollRef} />
+        {isEnd && (
+          <h1 className="text-gray-500 text-center text-lg mt-4 font-italic">Esta conversación a finalizado</h1>
+        )}
       </div>
 
-      {messages?.length > 0 && (
+      
+
+      {messages?.length > 0 && !isEnd && (
         <div className="p-4 border-t border-gray-200 w-full flex flex-row justify-between items-center">
           <Textarea
             value={newMessage}
